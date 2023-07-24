@@ -36,28 +36,28 @@ def index():
     return render_template('index.html')
 
 # C : Create
-@app.route('/v1/create', methods=['①'])   # URLとHTTPメソッド(GET or POST)を指定
+@app.route('/v1/create', methods=['GET'])   # URLとHTTPメソッド(GET or POST)を指定
 def create():
     messages = [{"name": "me", "message": "create!"}]
-    return ②   # json形式でレスポンス
+    return jsonify(messages)   # json形式でレスポンス
 
 # R : Read
-@app.route('/v1/read', methods=['①'])
+@app.route('/v1/read', methods=['GET'])
 def read():
-    return ②
+    return jsonify(messages)
 
 # U : Update
-@app.route('/v1/update', methods=['①'])
+@app.route('/v1/update', methods=['GET'])
 def update():
     message = {"name": "me", "message": "update"}
-    ③   # メッセージを追加
-    return ②
+    messages.append(message)   # メッセージを追加
+    return jsonify(messages)
 
 # D : Delete
-@app.route('/v1/delete', methods=['①'])
+@app.route('/v1/delete', methods=['GET'])
 def delete():
-    ④   # 末尾のメッセージを削除
-    return ②
+    messages[-1]   # 末尾のメッセージを削除
+    return jsonify(messages)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port = 8080)
